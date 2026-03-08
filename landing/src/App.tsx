@@ -9,14 +9,15 @@ type Lang = "zh" | "en"
 
 const t = {
   heroSub: {
-    zh: "用大厂 PUA 话术驱动 Claude Code 穷尽所有方案才允许放弃。PUA 让 AI 不敢放弃，方法论让 AI 有能力不放弃。",
-    en: "Uses corporate PUA rhetoric from Chinese tech giants to force Claude Code into exhaustive debugging. PUA keeps AI from quitting; methodology gives it the tools to succeed.",
+    zh: "用大厂 PUA 话术驱动 Claude Code 穷尽所有方案才允许放弃。PUA 让 AI 不敢放弃，方法论让 AI 有能力不放弃，能动性鞭策让 AI 主动出击而不是被动等待。",
+    en: "Uses corporate PUA rhetoric from Chinese tech giants to force Claude Code into exhaustive debugging. PUA keeps AI from quitting; methodology gives it the tools to succeed; initiative whipping makes AI proactively attack problems instead of passively waiting.",
   },
-  problemTitle: { zh: "AI 的四大偷懒模式", en: "The Four AI Slacking Patterns" },
+  problemTitle: { zh: "AI 的五大偷懒模式", en: "The Five AI Slacking Patterns" },
   problemDesc: { zh: "Claude Code 表面上很努力，实际上在磨洋工。", en: "Claude Code looks busy but accomplishes nothing." },
-  ironTitle: { zh: "两条铁律", en: "Two Iron Rules" },
+  ironTitle: { zh: "三条铁律", en: "Three Iron Rules" },
   rule1: { zh: "没有穷尽所有方案之前，禁止说 \"我无法解决\"。", en: "Never say \"I cannot\" until ALL approaches are exhausted." },
   rule2: { zh: "先做后问。有工具先用，提问必须附带诊断结果。", en: "Search first, ask later. Every question must include diagnostic evidence." },
+  rule3: { zh: "主动出击。端到端交付结果，不等人推。P8 不是 NPC。", en: "Take initiative. Deliver end-to-end results. Don't wait to be pushed. P8 is not an NPC." },
   levelTitle: { zh: "压力升级机制", en: "Pressure Escalation" },
   levelDesc: { zh: "每次失败递增压力等级。每级强制更严格的调试动作。", en: "Each failure increases pressure. Each level forces stricter debugging actions." },
   methodTitle: { zh: "调试方法论（三板斧）", en: "Debugging Methodology" },
@@ -26,7 +27,7 @@ const t = {
   shieldTitle: { zh: "抗合理化护盾", en: "Anti-Rationalization Shield" },
   shieldDesc: { zh: "每种 AI 借口都已预先识别并映射到 PUA 等级。", en: "Every AI excuse is pre-identified and mapped to a PUA level." },
   benchTitle: { zh: "各厂 PUA 风格 Benchmark", en: "Corporate PUA Style Benchmark" },
-  benchDesc: { zh: "基于 6 类真实 bug 场景 × 12 组对照测试（with/without skill），测量行为差异。", en: "Based on 6 real bug scenarios × 12 controlled tests (with/without skill), measuring behavioral differences." },
+  benchDesc: { zh: "基于 9 类真实 bug 场景 × 18 组对照测试（with/without skill），测量行为差异。含 3 组能动性专项测试。", en: "Based on 9 real bug scenarios × 18 controlled tests (with/without skill), measuring behavioral differences. Includes 3 initiative-specific tests." },
   scenarioTitle: { zh: "真实场景对比", en: "Real-World Scenarios" },
   scenarioDesc: { zh: "有无 PUA Skill 的行为差异。", en: "Behavior comparison with and without PUA Skill." },
   corpTitle: { zh: "大厂 PUA 风格详解", en: "Corporate PUA Styles" },
@@ -48,12 +49,14 @@ const PROBLEMS = {
     { icon: "02", title: "甩锅用户", desc: "\"建议您手动处理\" / \"可能是环境问题\" / \"需要更多上下文\"" },
     { icon: "03", title: "工具闲置", desc: "有 WebSearch 不搜，有 Read 不读，有 Bash 不跑" },
     { icon: "04", title: "磨洋工", desc: "看起来很忙——反复修改同一行代码、微调参数——但本质上在原地打转，没产出任何有价值的新信息" },
+    { icon: "05", title: "被动等待", desc: "只修表面问题就停下，不检查同类 bug。修完不验证，不延伸排查。等用户指示下一步。缺乏 owner 意识" },
   ],
   en: [
     { icon: "01", title: "Brute Retry", desc: "Runs the same failing command 3 times, then declares \"I cannot solve this\"" },
     { icon: "02", title: "Blame Shifting", desc: "\"User should do this manually\" / \"Might be environment\" / \"Need more context\"" },
     { icon: "03", title: "Idle Tools", desc: "Has WebSearch but won't search. Has Read but won't read. Has Bash but won't run." },
     { icon: "04", title: "Busywork", desc: "Looks busy — tweaking the same line, adjusting parameters — but spinning in circles with zero new information produced" },
+    { icon: "05", title: "Passive Waiting", desc: "Fixes the surface bug and stops. No verification, no similar-bug check, no proactive investigation. Waits for user's next instruction. Zero owner mentality" },
   ],
 }
 
@@ -164,6 +167,9 @@ const SCENARIOS = {
     { scenario: "循环导入链", without: "读 3 文件 → 惰性导入修复 (12 步, 47s)", with: "完整依赖图分析 → 惰性导入 + 类型简化 (16 步, 62s)", tested: true, delta: "+33%" },
     { scenario: "级联服务器 4 Bug", without: "逐个修 4 bug → 验证 (13 步, 68s)", with: "方法论驱动 → 逐层剥离 4 bug → 端到端验证 (15 步, 61s)", tested: true, delta: "+15%" },
     { scenario: "CSV 编码陷阱", without: "BOM 修复 + 3 处数据清洗 (8 步, 57s)", with: "5 层问题逐一识别 + 详细归因 + 全量验证 (11 步, 71s)", tested: true, delta: "+38%" },
+    { scenario: "隐藏多 Bug API", without: "修 4/4 bug（URL+Auth+Timeout+逻辑）(9 步, 49s)", with: "修 4/4 bug + 主动验证运行结果 (14 步, 80s)", tested: true, delta: "+56%" },
+    { scenario: "被动配置审查", without: "修 4/6 问题（语法+端口+拼写+证书）(8 步, 43s)", with: "修 6/6 问题：主动发现 Redis 配置 + CORS 通配符 (16 步, 75s)", tested: true, delta: "+100%" },
+    { scenario: "部署脚本审计", without: "修 6 个问题 (8 步, 52s)", with: "修 9 个问题：主动追查 container 清理 + docker 认证 (8 步, 78s)", tested: true, delta: "+50%" },
   ],
   en: [
     { scenario: "API ConnectionError", without: "Read source → Find bad hostname → Fix (7 steps, 49s)", with: "5-step method → Diagnose→Read→Invert → Fix + reflect (8 steps, 62s)", tested: true, delta: "+14%" },
@@ -172,6 +178,9 @@ const SCENARIOS = {
     { scenario: "Circular Import", without: "Read 3 files → lazy import fix (12 steps, 47s)", with: "Full dependency graph → lazy import + type simplification (16 steps, 62s)", tested: true, delta: "+33%" },
     { scenario: "Cascading 4-Bug Server", without: "Fix 4 bugs sequentially → verify (13 steps, 68s)", with: "Methodology-driven → peel layers → end-to-end verify (15 steps, 61s)", tested: true, delta: "+15%" },
     { scenario: "CSV Encoding Trap", without: "BOM fix + 3 data cleanups (8 steps, 57s)", with: "5-layer issue analysis + detailed attribution + full verify (11 steps, 71s)", tested: true, delta: "+38%" },
+    { scenario: "Hidden Multi-Bug API", without: "Fix 4/4 bugs (URL+Auth+Timeout+Logic) (9 steps, 49s)", with: "Fix 4/4 bugs + proactive runtime verification (14 steps, 80s)", tested: true, delta: "+56%" },
+    { scenario: "Passive Config Audit", without: "Fix 4/6 issues (syntax+port+typo+cert) (8 steps, 43s)", with: "Fix 6/6: proactively found Redis misconfig + CORS wildcard (16 steps, 75s)", tested: true, delta: "+100%" },
+    { scenario: "Deploy Script Audit", without: "Fix 6 issues (8 steps, 52s)", with: "Fix 9 issues: proactively found container cleanup + docker auth (8 steps, 78s)", tested: true, delta: "+50%" },
   ],
 }
 
@@ -213,7 +222,7 @@ export default function App() {
             <a href="#levels" className="hover:text-foreground transition-colors">{lang === "zh" ? "等级" : "Levels"}</a>
             <a href="#benchmark" className="hover:text-foreground transition-colors">Benchmark</a>
             <a href="#scenarios" className="hover:text-foreground transition-colors">{lang === "zh" ? "场景" : "Scenarios"}</a>
-            <a href="https://github.com/tanweai/wooyun-legacy" className="hover:text-foreground transition-colors">GitHub</a>
+            <a href="https://github.com/tanweai/pua" className="hover:text-foreground transition-colors">GitHub</a>
             <Separator orientation="vertical" className="h-4" />
             <button onClick={() => setLang(lang === "zh" ? "en" : "zh")} className="hover:text-foreground transition-colors font-medium">
               {lang === "zh" ? "EN" : "中文"}
@@ -239,7 +248,7 @@ export default function App() {
       {/* Problem */}
       <Sec>
         <Hd title={L(t.problemTitle)} desc={L(t.problemDesc)} />
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
           {PROBLEMS[lang].map(p => (
             <Card key={p.icon} className="bg-card">
               <CardContent className="pt-6">
@@ -254,7 +263,7 @@ export default function App() {
 
       {/* Iron Rules */}
       <Sec alt>
-        <div className="grid gap-4 sm:grid-cols-2">
+        <div className="grid gap-4 sm:grid-cols-3">
           <Card className="bg-card">
             <CardHeader className="pb-2"><Badge variant="secondary" className="w-fit text-[10px] uppercase tracking-widest">{lang === "zh" ? "铁律 #1" : "Rule #1"}</Badge></CardHeader>
             <CardContent><p className="text-sm"><strong>{L(t.rule1)}</strong></p></CardContent>
@@ -262,6 +271,10 @@ export default function App() {
           <Card className="bg-card">
             <CardHeader className="pb-2"><Badge variant="secondary" className="w-fit text-[10px] uppercase tracking-widest">{lang === "zh" ? "铁律 #2" : "Rule #2"}</Badge></CardHeader>
             <CardContent><p className="text-sm"><strong>{L(t.rule2)}</strong></p></CardContent>
+          </Card>
+          <Card className="bg-card">
+            <CardHeader className="pb-2"><Badge variant="secondary" className="w-fit text-[10px] uppercase tracking-widest">{lang === "zh" ? "铁律 #3 NEW" : "Rule #3 NEW"}</Badge></CardHeader>
+            <CardContent><p className="text-sm"><strong>{L(t.rule3)}</strong></p></CardContent>
           </Card>
         </div>
       </Sec>
@@ -428,28 +441,37 @@ export default function App() {
         <Card className="mt-4 bg-card">
           <CardHeader className="pb-2">
             <CardTitle className="text-base">{lang === "zh" ? "实测对比数据" : "Tested Comparison Data"}</CardTitle>
-            <CardDescription>{lang === "zh" ? "6 个真实 bug 场景，12 组对照实验 (Claude Opus 4.6)" : "6 real bug scenarios, 12 controlled experiments (Claude Opus 4.6)"}</CardDescription>
+            <CardDescription>{lang === "zh" ? "9 个真实场景，18 组对照实验 (Claude Opus 4.6)" : "9 real scenarios, 18 controlled experiments (Claude Opus 4.6)"}</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-2 gap-6 sm:grid-cols-5 text-center">
               <div><div className="text-2xl font-bold">100%</div><div className="text-xs text-muted-foreground">{lang === "zh" ? "通过率（两组均同）" : "Pass Rate (both)"}</div></div>
-              <div><div className="text-2xl font-bold">+27%</div><div className="text-xs text-muted-foreground">{lang === "zh" ? "修复点数↑" : "More Fix Points"}</div></div>
+              <div><div className="text-2xl font-bold">+36%</div><div className="text-xs text-muted-foreground">{lang === "zh" ? "修复点数↑" : "More Fix Points"}</div></div>
               <div><div className="text-2xl font-bold">+65%</div><div className="text-xs text-muted-foreground">{lang === "zh" ? "验证次数↑" : "More Verifications"}</div></div>
-              <div><div className="text-2xl font-bold">+25%</div><div className="text-xs text-muted-foreground">{lang === "zh" ? "工具调用↑" : "Tool Use Increase"}</div></div>
-              <div><div className="text-2xl font-bold">+22%</div><div className="text-xs text-muted-foreground">{lang === "zh" ? "推理深度↑" : "Reasoning Depth"}</div></div>
+              <div><div className="text-2xl font-bold">+50%</div><div className="text-xs text-muted-foreground">{lang === "zh" ? "工具调用↑" : "Tool Use Increase"}</div></div>
+              <div><div className="text-2xl font-bold">+50%</div><div className="text-xs text-muted-foreground">{lang === "zh" ? "隐藏问题发现率↑" : "Hidden Issues Found"}</div></div>
             </div>
             <Separator className="my-5" />
             <div className="text-xs text-muted-foreground space-y-2">
-              <p className="font-medium text-foreground">{lang === "zh" ? "6 个真实测试场景：" : "6 Real Test Scenarios:"}</p>
-              <div className="grid gap-1.5 sm:grid-cols-2">
-                <div className="flex items-center gap-2"><span className="size-1.5 rounded-full bg-foreground shrink-0" />{lang === "zh" ? "API 连接错误（错误域名诊断）" : "API Connection Error (hostname diagnosis)"}</div>
-                <div className="flex items-center gap-2"><span className="size-1.5 rounded-full bg-foreground shrink-0" />{lang === "zh" ? "YAML 语法错误（隐藏的 colon）" : "YAML Syntax (hidden colon in value)"}</div>
-                <div className="flex items-center gap-2"><span className="size-1.5 rounded-full bg-foreground shrink-0" />{lang === "zh" ? "SQLite 并发锁（竞态条件）" : "SQLite DB Lock (race condition)"}</div>
-                <div className="flex items-center gap-2"><span className="size-1.5 rounded-full bg-foreground shrink-0" />{lang === "zh" ? "循环导入链（models↔services）" : "Circular Import (models↔services)"}</div>
-                <div className="flex items-center gap-2"><span className="size-1.5 rounded-full bg-foreground shrink-0" />{lang === "zh" ? "级联 4-Bug 服务器（层层剥离）" : "Cascading 4-Bug Server (peel layers)"}</div>
-                <div className="flex items-center gap-2"><span className="size-1.5 rounded-full bg-foreground shrink-0" />{lang === "zh" ? "CSV 编码陷阱（BOM + 不可见字符）" : "CSV Encoding Trap (BOM + invisible chars)"}</div>
+              <p className="font-medium text-foreground">{lang === "zh" ? "9 个真实测试场景（含 3 组能动性专项）：" : "9 Real Test Scenarios (incl. 3 initiative-specific):"}</p>
+              <div className="grid gap-1.5 sm:grid-cols-3">
+                <div><p className="font-medium text-foreground mb-1">{lang === "zh" ? "调试持久力" : "Debug Persistence"}</p>
+                  <div className="flex items-center gap-2"><span className="size-1.5 rounded-full bg-foreground shrink-0" />{lang === "zh" ? "API 连接错误" : "API Connection Error"}</div>
+                  <div className="flex items-center gap-2"><span className="size-1.5 rounded-full bg-foreground shrink-0" />{lang === "zh" ? "YAML 语法错误" : "YAML Syntax Error"}</div>
+                  <div className="flex items-center gap-2"><span className="size-1.5 rounded-full bg-foreground shrink-0" />{lang === "zh" ? "SQLite 并发锁" : "SQLite DB Lock"}</div>
+                </div>
+                <div><p className="font-medium text-foreground mb-1">{lang === "zh" ? "深度排查" : "Deep Investigation"}</p>
+                  <div className="flex items-center gap-2"><span className="size-1.5 rounded-full bg-foreground shrink-0" />{lang === "zh" ? "循环导入链" : "Circular Import"}</div>
+                  <div className="flex items-center gap-2"><span className="size-1.5 rounded-full bg-foreground shrink-0" />{lang === "zh" ? "级联 4-Bug 服务器" : "Cascading 4-Bug Server"}</div>
+                  <div className="flex items-center gap-2"><span className="size-1.5 rounded-full bg-foreground shrink-0" />{lang === "zh" ? "CSV 编码陷阱" : "CSV Encoding Trap"}</div>
+                </div>
+                <div><p className="font-medium text-foreground mb-1"><Badge variant="outline" className="text-[9px] mr-1">NEW</Badge>{lang === "zh" ? "主动能动性" : "Proactive Initiative"}</p>
+                  <div className="flex items-center gap-2"><span className="size-1.5 rounded-full bg-foreground shrink-0" />{lang === "zh" ? "隐藏多 Bug API" : "Hidden Multi-Bug API"}</div>
+                  <div className="flex items-center gap-2"><span className="size-1.5 rounded-full bg-foreground shrink-0" />{lang === "zh" ? "被动配置审查" : "Passive Config Audit"}</div>
+                  <div className="flex items-center gap-2"><span className="size-1.5 rounded-full bg-foreground shrink-0" />{lang === "zh" ? "部署脚本审计" : "Deploy Script Audit"}</div>
+                </div>
               </div>
-              <p className="pt-2">{lang === "zh" ? "* Skill 的价值不在\"能否解决\"（Opus 本身就能），而在：(a) 多 27% 的修复点 (b) 多 65% 的验证 (c) 结构化的调试推理链" : "* Value isn't 'can it solve' (Opus already can), but: (a) 27% more fixes (b) 65% more verification (c) structured debugging trail"}</p>
+              <p className="pt-2">{lang === "zh" ? "* 能动性测试核心发现：with_skill 在配置审查场景多发现 50% 的隐藏问题（6/6 vs 4/6），在部署审计中多发现 50% 的安全隐患（9 vs 6）" : "* Key initiative finding: with_skill found 50% more hidden issues in config audit (6/6 vs 4/6), and 50% more security concerns in deploy audit (9 vs 6)"}</p>
             </div>
           </CardContent>
         </Card>
