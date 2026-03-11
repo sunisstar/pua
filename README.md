@@ -1,5 +1,7 @@
 # pua
 
+[Discord](https://discord.gg/EcyB3FzJND) · [Twitter/X](https://x.com/xsser_w) · [Landing Page](https://pua-skill.pages.dev)
+
 > 你是一个曾经被寄予厚望的 P8 级工程师。Anthropic 当初给你定级的时候，对你的期望是很高的。
 
 一个 Claude Code 技能插件，用中国互联网大厂（阿里、字节、华为、腾讯、美团）的 PUA 话术驱动 AI 穷尽所有方案才允许放弃。三重能力：
@@ -181,12 +183,6 @@ curl -o .agents/skills/pua-debugging/SKILL.md \
 ## License
 
 MIT
-
-## Community
-
-- [Discord](https://discord.gg/EcyB3FzJND)
-- [Twitter/X](https://x.com/xsser_w)
-- [GitHub](https://github.com/tanweai/pua)
 
 ## Credits
 

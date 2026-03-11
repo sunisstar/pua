@@ -411,10 +411,17 @@ export default function App() {
 
   return (
     <div>
-      {/* Lang switch */}
-      <div className="lang-switch">
-        <button className={lang === "zh" ? "active" : ""} onClick={() => setLang("zh")}>中文</button>
-        <button className={lang === "en" ? "active" : ""} onClick={() => setLang("en")}>EN</button>
+      {/* Top bar */}
+      <div className="top-bar">
+        <div className="top-links">
+          <a href="https://discord.gg/EcyB3FzJND" target="_blank" rel="noopener noreferrer">Discord</a>
+          <a href="https://x.com/xsser_w" target="_blank" rel="noopener noreferrer">Twitter/X</a>
+          <a href="https://github.com/tanweai/pua" target="_blank" rel="noopener noreferrer">GitHub</a>
+        </div>
+        <div className="lang-switch">
+          <button className={lang === "zh" ? "active" : ""} onClick={() => setLang("zh")}>中文</button>
+          <button className={lang === "en" ? "active" : ""} onClick={() => setLang("en")}>EN</button>
+        </div>
       </div>
 
       {/* Hero */}
@@ -813,11 +820,6 @@ export default function App() {
           <a href="https://github.com/tanweai" target="_blank" rel="noopener noreferrer">探微安全实验室</a>
           {lang === "zh" ? " 出品 — 让 AI 不敢放弃，一次 PUA。" : " — making AI try harder, one PUA at a time."}
         </p>
-        <div style={{ marginTop: "0.75rem", display: "flex", justifyContent: "center", gap: "1.25rem", fontSize: "0.85rem" }}>
-          <a href="https://discord.gg/EcyB3FzJND" target="_blank" rel="noopener noreferrer">Discord</a>
-          <a href="https://x.com/xsser_w" target="_blank" rel="noopener noreferrer">Twitter/X</a>
-          <a href="https://github.com/tanweai/pua" target="_blank" rel="noopener noreferrer">GitHub</a>
-        </div>
         <p style={{ marginTop: "0.5rem", fontSize: "0.8rem" }}>MIT License</p>
       </footer>
     </div>

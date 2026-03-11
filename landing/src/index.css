@@ -35,9 +35,22 @@ a { color: inherit; text-decoration: underline; }
 a:hover { text-decoration: none; }
 .container { max-width: var(--max-w); margin: 0 auto; }
 
-/* Lang switch */
+/* Top bar */
+.top-bar {
+  position: fixed; top: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; gap: 1rem;
+  padding: 0.75rem 1.5rem;
+}
+.top-links {
+  display: flex; gap: 0.75rem; font-size: 0.8rem;
+}
+.top-links a {
+  color: var(--text-muted); text-decoration: none;
+  padding: 0.25rem 0.5rem; border-radius: 6px;
+  transition: color 0.15s, background 0.15s;
+}
+.top-links a:hover { color: var(--text); background: var(--gray-100); }
 .lang-switch {
-  position: fixed; top: 1rem; right: 1.5rem; z-index: 100;
   display: flex; gap: 0.25rem;
   background: var(--bg); border: 1px solid var(--gray-200);
   border-radius: 9999px; padding: 0.25rem; font-size: 0.8rem;
