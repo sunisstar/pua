@@ -3,13 +3,15 @@
   "displayName": "PUA Skills",
   "description": "AI Coding Agent 技能插件，用中西大厂 PUA 话术驱动 AI 穷尽所有方案才允许放弃",
   "owner": {
-    "name": "sunisstar",
-    "url": "https://github.com/sunisstar"
+    "name": "sunisstar"
+  },
+  "metadata": {
+    "description": "AI Coding Agent 技能插件，用中西大厂 PUA 话术驱动 AI 穷尽所有方案才允许放弃"
   },
   "plugins": [
     {
       "name": "pua",
-      "source": "plugin.json"
+      "source": "./plugins/pua"
     }
   ]
 }

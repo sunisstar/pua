@@ -11,16 +11,14 @@
   "skills": [
     {
       "name": "pua",
-      "path": "skills/pua/SKILL.md"
+      "path": "skills/SKILL.md"
     }
   ],
   "keywords": [
-    "debugging",
     "pua",
     "productivity",
     "motivation",
-    "chinese",
-    "corporate"
+    "problem-solving"
   ],
   "license": "MIT"
 }
