@@ -1,20 +1,11 @@
 {
   "name": "pua-skills",
-  "description": "PUA Debugging Motivator for Claude Code -- forces AI to exhaust all solutions before giving up, using Chinese tech giant corporate rhetoric",
-  "owner": {
-    "name": "探微安全实验室",
-    "url": "https://github.com/tanweai"
-  },
+  "displayName": "PUA Skills",
+  "description": "AI Coding Agent 技能插件，用中西大厂 PUA 话术驱动 AI 穷尽所有方案才允许放弃",
   "plugins": [
     {
       "name": "pua",
-      "description": "PUA Debugging Motivator -- forces Claude Code to exhaust all solutions before giving up, using corporate PUA rhetoric from Chinese tech giants (Alibaba, ByteDance, Huawei, Tencent, Meituan)",
-      "version": "1.0.0",
-      "source": "./",
-      "author": {
-        "name": "探微安全实验室",
-        "url": "https://github.com/tanweai"
-      }
+      "path": "plugin.json"
     }
   ]
 }
