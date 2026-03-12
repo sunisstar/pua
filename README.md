@@ -169,64 +169,21 @@ claude plugin install pua@pua-skills
 git clone https://github.com/sunisstar/pua.git ~/.claude/plugins/pua
 ```
 
-### OpenAI Codex CLI
+### iFlow CLI
 
-Codex CLI 使用相同的 Agent Skills 开放标准（SKILL.md）。Codex 版本使用精简的 description 以兼容 Codex 的长度限制：
+**项目级安装**（仅当前项目生效）：
 
-```bash
-mkdir -p ~/.codex/skills/pua-debugging
-curl -o ~/.codex/skills/pua-debugging/SKILL.md \
-  https://raw.githubusercontent.com/sunisstar/pua/main/codex/pua-debugging/SKILL.md
-  
-# 如果需要 /pua 指令的话
-mkdir -p ~/.codex/prompts
-curl -o ~/.codex/prompts/pua.md \
-  https://raw.githubusercontent.com/sunisstar/pua/main/commands/pua.md
+```powershell
+New-Item -ItemType Directory -Force -Path ".iflow\skills\pua"; Invoke-WebRequest -Uri "https://raw.githubusercontent.com/sunisstar/pua/main/skills/pua/SKILL.md" -OutFile ".iflow\skills\pua\SKILL.md"
 ```
 
-项目级安装（仅当前项目生效）：
+**全局安装**（所有项目可用）：
 
-```bash
-mkdir -p .agents/skills/pua-debugging
-curl -o .agents/skills/pua-debugging/SKILL.md \
-  https://raw.githubusercontent.com/sunisstar/pua/main/codex/pua-debugging/SKILL.md
-
-# 如果需要 /pua 指令的话
-mkdir -p .agents/prompts
-curl -o .agents/prompts/pua.md \
-  https://raw.githubusercontent.com/sunisstar/pua/main/commands/pua.md
+```powershell
+New-Item -ItemType Directory -Force -Path "$env:USERPROFILE\.iflow\skills\pua"; Invoke-WebRequest -Uri "https://raw.githubusercontent.com/sunisstar/pua/main/skills/pua/SKILL.md" -OutFile "$env:USERPROFILE\.iflow\skills\pua\SKILL.md"
 ```
 
-### Cursor
-
-Cursor 使用 `.mdc` 规则文件（Markdown + YAML frontmatter）。PUA 规则通过 AI 语义匹配自动触发（Agent Discretion 模式）：
-
-```bash
-# 项目级安装（推荐）
-mkdir -p .cursor/rules
-curl -o .cursor/rules/pua-debugging.mdc \
-  https://raw.githubusercontent.com/sunisstar/pua/main/cursor/rules/pua-debugging.mdc
-```
-
-### Kiro
-
-Kiro 支持两种加载方式：**Steering**（自动语义触发）和 **Agent Skills**（兼容 SKILL.md 标准）。
-
-**方式一：Steering 文件（推荐）**
-
-```bash
-mkdir -p .kiro/steering
-curl -o .kiro/steering/pua-debugging.md \
-  https://raw.githubusercontent.com/sunisstar/pua/main/kiro/steering/pua-debugging.md
-```
-
-**方式二：Agent Skills（与 Claude Code 相同格式）**
-
-```bash
-mkdir -p .kiro/skills/pua-debugging
-curl -o .kiro/skills/pua-debugging/SKILL.md \
-  https://raw.githubusercontent.com/sunisstar/pua/main/skills/pua-debugging/SKILL.md
-```
+安装后重启 iFlow CLI 即可生效。
 
 ## 搭配使用
 
