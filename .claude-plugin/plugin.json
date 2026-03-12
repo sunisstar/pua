@@ -10,8 +10,8 @@
   },
   "skills": [
     {
-      "name": "pua-debugging",
-      "path": "skills/SKILL.md"
+      "name": "pua",
+      "path": "skills/pua/SKILL.md"
     }
   ],
   "keywords": [
