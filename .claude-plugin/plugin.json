@@ -6,12 +6,7 @@
     "name": "sunisstar"
   },
   "repository": "https://github.com/sunisstar/pua",
-  "skills": [
-    {
-      "name": "pua",
-      "path": "skills/SKILL.md"
-    }
-  ],
+  "skills": "./skills/",
   "keywords": [
     "pua",
     "productivity",
