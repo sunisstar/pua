@@ -1,13 +1,11 @@
 {
   "name": "pua",
   "version": "1.0.0",
-  "displayName": "PUA 万能激励引擎",
   "description": "用中西大厂 PUA 话术驱动 AI 穷尽所有方案才允许放弃。支持调试、实现、配置、部署、API 集成等所有任务类型。",
-  "author": "sunisstar",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/sunisstar/pua"
+  "author": {
+    "name": "sunisstar"
   },
+  "repository": "https://github.com/sunisstar/pua",
   "skills": [
     {
       "name": "pua",
