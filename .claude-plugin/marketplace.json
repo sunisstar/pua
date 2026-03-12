@@ -8,7 +8,7 @@
   "plugins": [
     {
       "name": "pua",
-      "source": "."
+      "source": "./.claude-plugin"
     }
   ]
 }
