@@ -163,7 +163,7 @@
 ```bash
 # 方式一：添加 marketplace 后安装
 claude plugin marketplace add sunisstar/pua
-claude plugin install pua@pua-skills
+claude plugin install pua@pua
 
 # 方式二：手动安装
 git clone https://github.com/sunisstar/pua.git ~/.claude/plugins/pua
