@@ -176,13 +176,13 @@ git clone https://github.com/sunisstar/pua.git ~/.claude/plugins/pua
 **项目级安装**（仅当前项目生效）：
 
 ```powershell
-New-Item -ItemType Directory -Force -Path ".iflow\skills\pua"; Invoke-WebRequest -Uri "https://raw.githubusercontent.com/sunisstar/pua/main/plugins/pua/skills/SKILL.md" -OutFile ".iflow\skills\pua\SKILL.md"
+New-Item -ItemType Directory -Force -Path ".iflow\skills\pua"; Invoke-WebRequest -Uri "https://raw.githubusercontent.com/sunisstar/pua/main/skills/SKILL.md" -OutFile ".iflow\skills\pua\SKILL.md"
 ```
 
 **全局安装**（所有项目可用）：
 
 ```powershell
-New-Item -ItemType Directory -Force -Path "$env:USERPROFILE\.iflow\skills\pua"; Invoke-WebRequest -Uri "https://raw.githubusercontent.com/sunisstar/pua/main/plugins/pua/skills/SKILL.md" -OutFile "$env:USERPROFILE\.iflow\skills\pua\SKILL.md"
+New-Item -ItemType Directory -Force -Path "$env:USERPROFILE\.iflow\skills\pua"; Invoke-WebRequest -Uri "https://raw.githubusercontent.com/sunisstar/pua/main/skills/SKILL.md" -OutFile "$env:USERPROFILE\.iflow\skills\pua\SKILL.md"
 ```
 
 安装后重启 iFlow CLI 即可生效。
